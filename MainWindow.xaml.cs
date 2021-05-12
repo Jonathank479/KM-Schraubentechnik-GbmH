@@ -470,6 +470,185 @@ namespace Schraubenprogramm
 
         }
 
+        //Hinzufügen zum Warenkorb
+
+        #region Zum Warenkorb hinzufügen
+        private void btn_Hinzufügen_Click(object sender, RoutedEventArgs e)          //Hinzufügen Button
+        {
+
+
+            if (tb_Anzahl.Background == Brushes.White)
+            {
+                double anzaahl = Convert.ToDouble(tb_Anzahl.Text);
+
+                if (anzaahl == 0)
+                {
+                    MessageBox.Show("Sie müssen mindestens eine Schraube wählen!");
+                }
+                else if (anzaahl < 1)
+                {
+                    MessageBox.Show("Mindestens eine Schraube wählen.");
+                }
+                else if (anzaahl > 1000)
+                {
+                    MessageBox.Show("Die maximale Anzahl beträgt 1000.");
+                }
+                else
+                {
+                    string name = "";
+                    if (tvi_AnSechkant.IsSelected == true)
+                    {
+                        name = "Sechkant";
+                    }
+                    else if (tvi_AnVierkant.IsSelected == true)
+                    {
+                        name = "Vierkant";
+                    }
+
+                    Random zufall = new Random();
+
+
+                    int artikelnummer = zufall.Next(10000, 99999);
+                    int anzahl = Convert.ToInt32(tb_Anzahl.Text);
+                    double eigenschaft = Convert.ToDouble(tb_AnGewindedurchmesser.Text);
+                    double Preis = 0;
+
+
+                    Gesamtpreis cl_gesamtpreise = new Gesamtpreis(preiswert.Wert);
+
+                    pricelists.Gesamtpreisliste.Add(cl_gesamtpreise);
+
+
+
+
+
+                    //Kommentar 
+                    Schrauben newSchraube = new Schrauben(name, eigenschaft, anzahl, artikelnummer, Preis);
+                    store.Schraubenliste.Add(newSchraube);
+
+
+
+                    lbl_Infotext.Content = "Bitte checken Sie Ihren Warenkorb";
+
+                    MessageBox.Show("Der Artikel wurde zum Warenkorb hinzugefügt.");
+                }
+            }
+            else if (tb_Anzahl.Background == Brushes.Red)
+            {
+                MessageBox.Show("Bitte Eingabe überprüfen.");
+            }
+
+
+        }
+
+
+
+
+        private void tb_Anzahl_LostFocus(object sender, RoutedEventArgs e)       //Prüfen auf Integer Zahl (ganzzahlig !!!)
+        {
+            TextBox textbox = (TextBox)sender;
+            Int32 resultat;
+            if (Int32.TryParse(textbox.Text, out resultat))
+            {
+                tb_Anzahl.Background = Brushes.White;
+            }
+            else
+            {
+                tb_Anzahl.Background = Brushes.Red;
+            }
+        }
+
+
+        private void tb_Anzahl_MouseDoubleClick(object sender, MouseButtonEventArgs e)              //Freigabe des Hinzufügen Buttons erst nach Eingabe einer Zahl
+        {
+            btn_Hinzufügen.IsEnabled = true;
+        }
+        #endregion
+
+        #region Preisberechnung
+        private void tb_Anzahl_MouseEnter(object sender, MouseEventArgs e)                //Preis anzeigen
+        {
+
+        }
+
+        private void btn_PreisBerechnen_Click(object sender, RoutedEventArgs e)          //Berechnen des Preises
+        {
+            if (tb_Anzahl.Background == Brushes.White)
+            {
+                int anzaahl = Convert.ToInt32(tb_Anzahl.Text);
+                if (anzaahl < 0)
+                {
+                    MessageBox.Show("Bitte Eingabe überprüfen");
+                }
+                else
+                {
+                    {
+
+                    }
+                    double Kopfhöhe, Kopfbreite, Gewindedurchmesser, Gewindelänge, Schaftlänge, dichte, gesamtvolumen, masse, Preis, gesamtpreis;
+                    Kopfhöhe = Convert.ToDouble(tb_AnKopfhöhe.Text);
+                    Kopfbreite = Convert.ToDouble(tb_AnKopfbreite.Text);
+                    Gewindedurchmesser = Convert.ToDouble(tb_AnGewindedurchmesser.Text);
+                    Gewindelänge = Convert.ToDouble(tb_AnGewindelänge.Text);
+                    Schaftlänge = Convert.ToDouble(tb_AnSchaftlänge.Text);
+                    dichte = 0;
+                    masse = 0;
+                    Preis = 0;
+
+
+                    if (cb_Item_AnBaustahl.IsSelected)
+                    {
+                        dichte = 7.85;
+                        Preis = 3.63;
+                    }
+                    else if (cb_Item_AnAluminium.IsSelected)
+                    {
+                        dichte = 2.7;
+                        Preis = 9.89;
+                    }
+                    else if (cb_Item_AnMessing.IsSelected)
+                    {
+                        dichte = 8.44;
+                        Preis = 7.13;
+                    }
+                    else if (cb_Item_AnVergütungsstahl.IsSelected)
+                    {
+                        dichte = 8;
+                        Preis = 10.28;
+                    }
+
+
+                    if (tvi_AnVierkant.IsSelected)
+                    {
+                        gesamtvolumen = (((((Gewindedurchmesser / 2) * (Gewindedurchmesser / 2) * Math.PI) * (Gewindelänge + Schaftlänge))) + (Kopfhöhe * Kopfbreite));
+                        masse = (gesamtvolumen / 1000) * dichte;
+
+                    }
+                    if (tvi_AnSechkant.IsSelected)
+                    {
+                        gesamtvolumen = ((Math.Sqrt(3) * (3 * ((Kopfbreite / Math.Sqrt(3)) * (Kopfbreite / Math.Sqrt(3))) / 2)) * Kopfhöhe) + (((Gewindedurchmesser / 2) * (Gewindedurchmesser / 2)) * Math.PI) * (Gewindelänge + Schaftlänge);
+                        masse = (gesamtvolumen / 1000) * dichte;
+
+                    }
+                    gesamtpreis = (Preis / 100) * masse;
+
+                    lbl_einzelpreis.Content = "Einzelpreis: " + gesamtpreis + " (x " + tb_Anzahl.Text + ")";
+                    lbl_gesamtpreis.Content = "Gesamtpreis: " + gesamtpreis * Convert.ToInt32(tb_Anzahl.Text);
+
+                    lbl_Infotext.Content = "...Ihr Preis steht unten bereit.";
+
+                    preiswert.Wert = gesamtpreis * Convert.ToInt32(tb_Anzahl.Text);
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("Eingaben überprüfen");
+            }
+        }
+
+        #endregion
+
         #region Beenden
         private void btn_Beenden2_Click(object sender, RoutedEventArgs e)
         {

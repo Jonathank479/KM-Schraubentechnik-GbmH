@@ -359,7 +359,71 @@ namespace Schraubenprogramm
 
         }
 
-        
+        private void dg_TechnischeDaten_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Aktualisieren_Click(object sender, RoutedEventArgs e)
+        {
+
+            double Gewindedurchmesser = Convert.ToDouble(tb_Gewindedurchmesser.Text);
+
+            List<Angaben> angaben = new List<Angaben>();
+            angaben.Add(new Angaben("Gewindedurchmesser in mm", Gewindedurchmesser));
+            angaben.Add(new Angaben("Gewindelänge in mm", Convert.ToDouble(tb_Gewindelänge.Text)));
+            angaben.Add(new Angaben("Schaftlänge in mm", Convert.ToDouble(tb_Schaftlänge.Text)));
+
+
+            if (tvi_BeVierkant.IsSelected)
+            {
+                angaben.Add(new Angaben("Kopfbreite in mm", Convert.ToDouble(tb_Kopfbreite.Text)));
+            }
+            if (tvi_BeSechkant.IsSelected)
+            {
+                angaben.Add(new Angaben("Schlüsselweite in mm", Convert.ToDouble(tb_Kopfbreite.Text)));
+            }
+            angaben.Add(new Angaben("Kopfhöhe in mm", Convert.ToDouble(tb_Kopfhöhe.Text)));
+
+            dg_Angaben.ItemsSource = angaben;
+
+            List<Angaben2> angaben2 = new List<Angaben2>();
+            if (cb_Item_Baustahl.IsSelected)
+            {
+                angaben2.Add(new Angaben2("Werkstoff", "Baustahl"));
+            }
+            else if (cb_Item_Aluminium.IsSelected)
+            {
+                angaben2.Add(new Angaben2("Werkstoff", "Aluminium"));
+            }
+            else if (cb_Item_Messing.IsSelected)
+            {
+                angaben2.Add(new Angaben2("Werkstoff", "Messing"));
+            }
+            else if (cb_Item_Vergütungsstahl.IsSelected)
+            {
+                angaben2.Add(new Angaben2("Werkstoff", "Vergütungsstahl"));
+            }
+
+            if (cb_Item_Leer.IsSelected)
+            {
+                angaben2.Add(new Angaben2("Legierung", "Nein"));
+            }
+            if (cb_Item_Bronzelegierung.IsSelected)
+            {
+                angaben2.Add(new Angaben2("Legierung", "Bronzelegierung"));
+            }
+            if (cb_Item_Kupferlegierung.IsSelected)
+            {
+                angaben2.Add(new Angaben2("Legierung", "Kupferlegierung"));
+            }
+
+            dg_Angaben2.ItemsSource = angaben2;
+
+            dg_TechnischeDaten.Visibility = Visibility.Visible;
+
+
+        }      //Technisches Datenblatt analysieren
 
         private void tc_BerechnungenVierkant_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

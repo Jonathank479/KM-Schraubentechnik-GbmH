@@ -847,7 +847,73 @@ namespace Schraubenprogramm
             gr_NT_Auswahl.Visibility = Visibility.Visible;
             lbl_Infotext.Content = "...Bitte wählen Sie erneut einen Schraubenkopf-Typ aus";
         }
+        #region Bilder Normteile
+        private void lb_Item_Vierkant_MouseEnter(object sender, MouseEventArgs e)
+        {
+            im_Vierkant.Visibility = Visibility.Visible;
+            tbl_Norm.Text = "Vierkantschraube mit Kernansatz DIN 479";
+        }
 
+        private void lb_Item_Sechkant_MouseEnter(object sender, MouseEventArgs e)
+        {
+            im_Sechkant.Visibility = Visibility.Visible;
+            tbl_Norm.Text = "Sechskantschraube DIN EN ISO 4017 (durchgÃ¤ngiges Gewinde) / DIN EN ISO 4014 (mit Schaft)";
+        }
+
+        private void lb_Item_Innensechskant_MouseEnter(object sender, MouseEventArgs e)
+        {
+            im_Innensechkant.Visibility = Visibility.Visible;
+            tbl_Norm.Text = "Senkkopfschraube mit Innensechskant DIN EN ISO 10642";
+        }
+
+        private void lb_Item_Zylinderkopf_MouseEnter(object sender, MouseEventArgs e)
+        {
+            im_Zylinderkopf.Visibility = Visibility.Visible;
+            tbl_Norm.Text = "Zylinderkopfschraube mit Innensechskant DIN EN ISO 4762";
+        }
+
+        private void lb_Item_Schlitzkopf_MouseEnter(object sender, MouseEventArgs e)
+        {
+            im_Schlitzkopf.Visibility = Visibility.Visible;
+            tbl_Norm.Text = "Linsensenkschraube mit Schlitz DIN EN ISO 2010";
+        }
+
+        private void lb_Item_Vierkant_MouseLeave(object sender, MouseEventArgs e)
+        {
+            im_Vierkant.Visibility = Visibility.Hidden;
+            tbl_Norm.Text = "";
+        }
+
+        private void lb_Item_Sechkant_MouseLeave(object sender, MouseEventArgs e)
+        {
+            im_Sechkant.Visibility = Visibility.Hidden;
+            tbl_Norm.Text = "";
+        }
+
+        private void lb_Item_Innensechskant_MouseLeave(object sender, MouseEventArgs e)
+        {
+            im_Innensechkant.Visibility = Visibility.Hidden;
+            tbl_Norm.Text = "";
+        }
+
+        private void lb_Item_Zylinderkopf_MouseLeave(object sender, MouseEventArgs e)
+        {
+            im_Zylinderkopf.Visibility = Visibility.Hidden;
+            tbl_Norm.Text = "";
+        }
+
+        private void lb_Item_Schlitzkopf_MouseLeave(object sender, MouseEventArgs e)
+        {
+            im_Schlitzkopf.Visibility = Visibility.Hidden;
+            tbl_Norm.Text = "";
+        }
+
+
+        private void lb_Item_Vierkant_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+        #endregion
         private void btn_NT_Zurück2_Click(object sender, RoutedEventArgs e)   //Button Zurück NT 2
         {
             gr_NT_Anzahl.Visibility = Visibility.Hidden;

@@ -715,6 +715,234 @@ namespace Schraubenprogramm
         
     }
 
+    #region Normtabellen für tehnisches Datenblatt
+    private void Button_Click(object sender, RoutedEventArgs e)
+    {
+        dg_Warenkorb2.ItemsSource = store.Schraubenliste;
+        btn_Aktualisieren_end.IsEnabled = false;
+        tc_Item_technischesDatenbeiblatt.Visibility = Visibility.Visible;
+        btn_NT_Hinzufügen.IsEnabled = false;
+
+        int zahler = 0;
+
+        if (Convert.ToDouble(cb_NT_Gewindegröße.Text) == 4)
+        {
+            zahler = 0;
+        }
+        else if (Convert.ToDouble(cb_NT_Gewindegröße.Text) == 6)
+        {
+            zahler = 1;
+        }
+        else if (Convert.ToDouble(cb_NT_Gewindegröße.Text) == 8)
+        {
+            zahler = 2;
+        }
+        else if (Convert.ToDouble(cb_NT_Gewindegröße.Text) == 10)
+        {
+            zahler = 3;
+        }
+        else if (Convert.ToDouble(cb_NT_Gewindegröße.Text) == 12)
+        {
+            zahler = 4;
+        }
+        else if (Convert.ToDouble(cb_NT_Gewindegröße.Text) == 14)
+        {
+            zahler = 5;
+        }
+        else if (Convert.ToDouble(cb_NT_Gewindegröße.Text) == 16)
+        {
+            zahler = 6;
+        }
+        else if (Convert.ToDouble(cb_NT_Gewindegröße.Text) == 20)
+        {
+            zahler = 7;
+        }
+        else if (Convert.ToDouble(cb_NT_Gewindegröße.Text) == 24)
+        {
+            zahler = 8;
+        }
+
+        List<technischesBlatt> InfoDaten = new List<technischesBlatt>();
+
+        if (lb_Item_Innensechskant.IsSelected == true)
+        {
+            double[,] Normtabelle4 = new double[9, 5];
+
+            //Bezeichnung                     // Kopfgröße                  //Kerndurchmesser                //Schlüsselweite              //Kopftiefe
+
+            Normtabelle4[0, 0] = 4; Normtabelle4[0, 1] = 7.5; Normtabelle4[0, 2] = 3.40; Normtabelle4[0, 3] = 2.5; Normtabelle4[0, 4] = 1.9;
+            Normtabelle4[1, 0] = 6; Normtabelle4[1, 1] = 11.3; Normtabelle4[1, 2] = 5.07; Normtabelle4[1, 3] = 4; Normtabelle4[1, 4] = 3.7;
+            Normtabelle4[2, 0] = 8; Normtabelle4[2, 1] = 15.2; Normtabelle4[2, 2] = 6.82; Normtabelle4[2, 3] = 5; Normtabelle4[2, 4] = 5;
+            Normtabelle4[3, 0] = 10; Normtabelle4[3, 1] = 19.2; Normtabelle4[3, 2] = 8.56; Normtabelle4[3, 3] = 6; Normtabelle4[3, 4] = 6.2;
+            Normtabelle4[4, 0] = 12; Normtabelle4[4, 1] = 23.1; Normtabelle4[4, 2] = 10.32; Normtabelle4[4, 3] = 8; Normtabelle4[4, 4] = 7.4;
+            Normtabelle4[5, 0] = 14; Normtabelle4[5, 1] = 30; Normtabelle4[5, 2] = 12.07; Normtabelle4[5, 3] = 10; Normtabelle4[5, 4] = 8.2;
+            Normtabelle4[6, 0] = 16; Normtabelle4[6, 1] = 30; Normtabelle4[6, 2] = 14.08; Normtabelle4[6, 3] = 10; Normtabelle4[6, 4] = 8.8;
+            Normtabelle4[7, 0] = 20; Normtabelle4[7, 1] = 36; Normtabelle4[7, 2] = 17.57; Normtabelle4[7, 3] = 12; Normtabelle4[7, 4] = 10.2;
+            Normtabelle4[8, 0] = 24; Normtabelle4[8, 1] = 39; Normtabelle4[8, 2] = 21.07; Normtabelle4[8, 3] = 14; Normtabelle4[8, 4] = 14;
+
+            InfoDaten.Add(new technischesBlatt("Kopfgröße in mm", Normtabelle4[zahler, 1]));
+            InfoDaten.Add(new technischesBlatt("Kerndurchmesser in mm", Normtabelle4[zahler, 2]));
+            InfoDaten.Add(new technischesBlatt("Schlüsselweite in mm", Normtabelle4[zahler, 3]));
+            InfoDaten.Add(new technischesBlatt("Kopftiefe in mm", Normtabelle4[zahler, 4]));
+
+            lbl_technischesDatenblatt.Content = "Senkkopfschraube mit Innensechskant DIN EN ISO 10642";
+
+        }
+        else if (lb_Item_Schlitzkopf.IsSelected == true)
+        {
+            double[,] Normtabelle5 = new double[5, 6];
+
+            //Bezeichnung       // Kopfgröße             //Kerndurchmesser        //Schlüsselweite                           // Kopfhöhe (Linsenhöhe)
+            Normtabelle5[0, 0] = 4; Normtabelle5[0, 1] = 8.4; Normtabelle5[0, 2] = 3.40; Normtabelle5[0, 3] = 2.7; Normtabelle5[0, 5] = 1.0;
+            Normtabelle5[1, 0] = 6; Normtabelle5[1, 1] = 9.3; Normtabelle5[1, 2] = 5.07; Normtabelle5[1, 3] = 2.7; Normtabelle5[1, 5] = 1.2;
+            Normtabelle5[2, 0] = 8; Normtabelle5[2, 1] = 11.3; Normtabelle5[2, 2] = 6.82; Normtabelle5[2, 3] = 3.3; Normtabelle5[2, 5] = 1.4;
+            Normtabelle5[3, 0] = 10; Normtabelle5[3, 1] = 15.8; Normtabelle5[3, 2] = 10.32; Normtabelle5[3, 3] = 4.7; Normtabelle5[3, 5] = 2.0;
+            Normtabelle5[4, 0] = 12; Normtabelle5[4, 1] = 18.3; Normtabelle5[4, 2] = 12.07; Normtabelle5[4, 3] = 5.0; Normtabelle5[4, 5] = 2.3;
+            Normtabelle5[5, 0] = 14; Normtabelle5[5, 1] = 24.5; Normtabelle5[5, 2] = 12.07; Normtabelle5[5, 3] = 21; Normtabelle5[5, 4] = 8.8;
+            Normtabelle5[6, 0] = 16; Normtabelle5[6, 1] = 26.8; Normtabelle5[6, 2] = 14.08; Normtabelle5[6, 3] = 24; Normtabelle5[6, 4] = 10;
+
+            InfoDaten.Add(new technischesBlatt("Kopfgröße in mm", Normtabelle5[zahler, 1]));
+            InfoDaten.Add(new technischesBlatt("Kerndurchmesser in mm", Normtabelle5[zahler, 2]));
+            InfoDaten.Add(new technischesBlatt("Schlüsselweite in mm", Normtabelle5[zahler, 3]));
+            InfoDaten.Add(new technischesBlatt("Kopftiefe in mm", Normtabelle5[zahler, 4]));
+
+            lbl_technischesDatenblatt.Content = "Linsensenkschraube mit Schlitz DIN EN ISO 2010";
+        }
+        else if (lb_Item_Sechkant.IsSelected == true)
+        {
+            double[,] Normtabelle = new double[11, 5];
+
+
+            //Bezeichnung           // Kopfgröße             //Kerndurchmesser      //Schlüsselweite          //Kopfhöhe
+            Normtabelle[0, 0] = 4; Normtabelle[0, 1] = 7.7; Normtabelle[0, 2] = 3.40; Normtabelle[0, 3] = 7; Normtabelle[0, 4] = 2.8;
+            Normtabelle[1, 0] = 6; Normtabelle[1, 1] = 11.1; Normtabelle[1, 2] = 5.07; Normtabelle[1, 3] = 10; Normtabelle[1, 4] = 4;
+            Normtabelle[2, 0] = 8; Normtabelle[2, 1] = 14.4; Normtabelle[2, 2] = 6.82; Normtabelle[2, 3] = 13; Normtabelle[2, 4] = 5.3;
+            Normtabelle[3, 0] = 10; Normtabelle[3, 1] = 18.9; Normtabelle[3, 2] = 8.56; Normtabelle[3, 3] = 17; Normtabelle[3, 4] = 6.4;
+            Normtabelle[4, 0] = 12; Normtabelle[4, 1] = 21.1; Normtabelle[4, 2] = 10.32; Normtabelle[4, 3] = 19; Normtabelle[4, 4] = 7.5;
+            Normtabelle[5, 0] = 14; Normtabelle[5, 1] = 24.5; Normtabelle[5, 2] = 12.07; Normtabelle[5, 3] = 21; Normtabelle[5, 4] = 8.8;
+            Normtabelle[6, 0] = 16; Normtabelle[6, 1] = 26.8; Normtabelle[6, 2] = 14.08; Normtabelle[6, 3] = 24; Normtabelle[6, 4] = 10;
+
+            Normtabelle[7, 0] = 20; Normtabelle[7, 1] = 33.5; Normtabelle[7, 2] = 17.57; Normtabelle[7, 3] = 30; Normtabelle[7, 4] = 12.5;
+
+            Normtabelle[8, 0] = 24; Normtabelle[8, 1] = 40.0; Normtabelle[8, 2] = 21.07; Normtabelle[8, 3] = 36; Normtabelle[8, 4] = 15;
+
+            InfoDaten.Add(new technischesBlatt("Kopfgröße in mm", Normtabelle[zahler, 1]));
+            InfoDaten.Add(new technischesBlatt("Kerndurchmesser in mm", Normtabelle[zahler, 2]));
+            InfoDaten.Add(new technischesBlatt("Schlüsselweite in mm", Normtabelle[zahler, 3]));
+            InfoDaten.Add(new technischesBlatt("Kopftiefe in mm", Normtabelle[zahler, 4]));
+
+            lbl_technischesDatenblatt.Content = "Sechskantschraube DIN EN ISO 4017 (durchgängiges Gewinde) / DIN EN ISO 4014";
+
+        }
+        else if (lb_Item_Vierkant.IsSelected == true)
+        {
+            double[,] Normtabelle2 = new double[8, 5];
+
+            //Bezeichnung            // Kopfgröße           //Kerndurchmesser           //Schlüsselweite        //Kopfhöhe
+            Normtabelle2[0, 0] = 4; Normtabelle2[0, 1] = 6; Normtabelle2[0, 2] = 3.40; Normtabelle2[0, 3] = 4; Normtabelle2[0, 4] = 4;
+            Normtabelle2[1, 0] = 6; Normtabelle2[1, 1] = 8; Normtabelle2[1, 2] = 5.07; Normtabelle2[1, 3] = 6; Normtabelle2[1, 4] = 6;
+            Normtabelle2[2, 0] = 8; Normtabelle2[2, 1] = 10; Normtabelle2[2, 2] = 6.82; Normtabelle2[2, 3] = 8; Normtabelle2[2, 4] = 8;
+            Normtabelle2[3, 0] = 10; Normtabelle2[3, 1] = 13; Normtabelle2[3, 2] = 8.56; Normtabelle2[3, 3] = 10; Normtabelle2[3, 4] = 10;
+            Normtabelle2[4, 0] = 12; Normtabelle2[4, 1] = 17; Normtabelle2[4, 2] = 10.32; Normtabelle2[4, 3] = 13; Normtabelle2[4, 4] = 12;
+            Normtabelle2[5, 0] = 16; Normtabelle2[5, 1] = 22; Normtabelle2[5, 2] = 14.08; Normtabelle2[5, 3] = 17; Normtabelle2[5, 4] = 16;
+            Normtabelle2[6, 0] = 20; Normtabelle2[6, 1] = 28; Normtabelle2[6, 2] = 17.57; Normtabelle2[6, 3] = 22; Normtabelle2[6, 4] = 20;
+            Normtabelle2[7, 0] = 24; Normtabelle2[7, 1] = 32; Normtabelle2[7, 2] = 21.07; Normtabelle2[7, 3] = 24; Normtabelle2[7, 4] = 22;
+
+            InfoDaten.Add(new technischesBlatt("Kopfgröße in mm", Normtabelle2[zahler, 1]));
+            InfoDaten.Add(new technischesBlatt("Kerndurchmesser in mm", Normtabelle2[zahler, 2]));
+            InfoDaten.Add(new technischesBlatt("Schlüsselweite in mm", Normtabelle2[zahler, 3]));
+            InfoDaten.Add(new technischesBlatt("Kopftiefe in mm", Normtabelle2[zahler, 4]));
+
+            lbl_technischesDatenblatt.Content = "Vierkantschraube mit Kernansatz DIN 479";
+
+        }
+        else if (lb_Item_Zylinderkopf.IsSelected == true)
+        {
+            double[,] Normtabelle3 = new double[11, 5];
+
+            //Bezeichnung             // Kopfgröße         //Kerndurchmesser            //Schlüsselweite       //Kopfhöhe
+            Normtabelle3[0, 0] = 4; Normtabelle3[0, 1] = 7; Normtabelle3[0, 2] = 3.40; Normtabelle3[0, 3] = 3; Normtabelle3[0, 4] = 4;
+            Normtabelle3[1, 0] = 6; Normtabelle3[1, 1] = 10; Normtabelle3[1, 2] = 5.07; Normtabelle3[1, 3] = 5; Normtabelle3[1, 4] = 6;
+            Normtabelle3[2, 0] = 8; Normtabelle3[2, 1] = 13; Normtabelle3[2, 2] = 6.82; Normtabelle3[2, 3] = 6; Normtabelle3[2, 4] = 8;
+            Normtabelle3[3, 0] = 10; Normtabelle3[3, 1] = 16; Normtabelle3[3, 2] = 8.56; Normtabelle3[3, 3] = 8; Normtabelle3[3, 4] = 10;
+            Normtabelle3[4, 0] = 12; Normtabelle3[4, 1] = 18; Normtabelle3[4, 2] = 10.32; Normtabelle3[4, 3] = 10; Normtabelle3[4, 4] = 12;
+            Normtabelle3[5, 0] = 14; Normtabelle3[5, 1] = 21; Normtabelle3[5, 2] = 12.07; Normtabelle3[5, 3] = 12; Normtabelle3[5, 4] = 14;
+            Normtabelle3[6, 0] = 16; Normtabelle3[6, 1] = 24; Normtabelle3[6, 2] = 14.08; Normtabelle3[6, 3] = 14; Normtabelle3[6, 4] = 16;
+
+            Normtabelle3[7, 0] = 20; Normtabelle3[7, 1] = 30; Normtabelle3[7, 2] = 17.57; Normtabelle3[7, 3] = 17; Normtabelle3[7, 4] = 20;
+
+            Normtabelle3[8, 0] = 24; Normtabelle3[8, 1] = 36; Normtabelle3[8, 2] = 21.07; Normtabelle3[8, 3] = 19; Normtabelle3[8, 4] = 24;
+
+            InfoDaten.Add(new technischesBlatt("Kopfgröße in mm", Normtabelle3[zahler, 1]));
+            InfoDaten.Add(new technischesBlatt("Kerndurchmesser in mm", Normtabelle3[zahler, 2]));
+            InfoDaten.Add(new technischesBlatt("Schlüsselweite in mm", Normtabelle3[zahler, 3]));
+            InfoDaten.Add(new technischesBlatt("Kopftiefe in mm", Normtabelle3[zahler, 4]));
+
+            lbl_technischesDatenblatt.Content = "Zylinderkopfschraube mit Innensechskant DIN EN ISO 4762";
+
+        }
+
+
+        int Re = 0; // Streckgrenze 
+        int Rm = 0; //Zugfestigkeit
+        if (cb_Item_36.IsSelected == true)
+        {
+            Re = 180;
+            Rm = 300;
+        }
+        if (cb_Item_46.IsSelected == true)
+        {
+            Re = 240;
+            Rm = 400;
+        }
+        if (cb_Item_48.IsSelected == true)
+        {
+            Re = 320;
+            Rm = 400;
+        }
+        if (cb_Item_58.IsSelected == true)
+        {
+            Re = 400;
+            Rm = 500;
+        }
+        if (cb_Item_68.IsSelected == true)
+        {
+            Re = 480;
+            Rm = 600;
+        }
+        if (cb_Item_88.IsSelected == true)
+        {
+            Re = 640;
+            Rm = 800;
+        }
+        if (cb_Item_98.IsSelected == true)
+        {
+            Re = 720;
+            Rm = 900;
+        }
+        if (cb_Item_109.IsSelected == true)
+        {
+            Re = 900;
+            Rm = 1000;
+        }
+        if (cb_Item_129.IsSelected == true)
+        {
+            Re = 1080;
+            Rm = 1200;
+        }
+
+        List<technischesBlattWeitereAngaben> InfoDatenWeitereAngaben = new List<technischesBlattWeitereAngaben>();
+        InfoDatenWeitereAngaben.Add(new technischesBlattWeitereAngaben("Zugfestigkeit in N/mm^2", Rm));
+        InfoDatenWeitereAngaben.Add(new technischesBlattWeitereAngaben("Streckgrenze in N/mm^2", Re));
+
+        dg_technischesDatenblattWeitereAngaben.ItemsSource = InfoDatenWeitereAngaben;
+
+        dg_technischesDatenblatt.ItemsSource = InfoDaten;
+
+
+    }
+    #endregion
+
 
     #region Klassen
 
